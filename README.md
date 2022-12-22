@@ -17,6 +17,17 @@ Pareto Principle를 따르는 cache system을 구현한다.<br>
 request per day = 4000 req/s * 86400s ~= 350 * 10^6 req/day<br>
 20 percent of 350 * 10^6 req/day * 500 bytes ~= 35 * 10^9 = 35 GB/day<br>
 
+# High Level Design and Future Work
+## High Level Design
+Overview will be inserted in here<br>
+
+## Future Work
+1. Load balancer and distributed server
+2. Sharded database
+
+## Shortening Algorithm
+
+
 # Reference
 1. https://medium.com/@sandeep4.verma/system-design-scalable-url-shortener-service-like-tinyurl-106f30f23a82
 2. https://dev.to/karanpratapsingh/system-design-url-shortener-10i5
