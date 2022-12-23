@@ -70,8 +70,20 @@ ShortURL에 대해 search index를 만들 수도 있다.<br>
     KGS는 메모리 상에 key들을 조금 저장해 서버가 필요할 때 빨리 전달 가능하며 Memory에 옮길 때 used라고 체크해서 unique를 보장한다.<br>
     KGS는 SQL로 lock 및 sync 기능을 쓰기에 좋아보인다.<br>
     KGS can be a SPOF<br>
+5. Counter Approach
+    counter를 담당하는 DB를 둔다.<br>
+    한 번 받아올 때 뭉탱이로 받아와서 메모리에 저장해둔다.(메모리 접근 방지)<br>
+    여러 counter를 사용하여 서버마다 1부터 1M, 1M부터 2M식으로 범위를 지정해서 counter를 리턴한다.<br>
+    하나의 카운터가 모든 범위를 사용하면 문제가 생긴다.<br>
+    하나의 카운터가 망가지면 그 서버는 작동이 불가능하다.<br>
+    distributed service Zookeeper를 사용한다.(race condition, deadlock, or particle failure of data.)<br>
+    Zookeeper는 distributed coordination service로 large set of hosts를 관리한다.(naming of the servers, active servers, dead servers, and configuration information of all the hosts)<br>
+    여러 서버 사이에서 coordination과 synchronization을 관리한다.<br>
+    동시에 같은 URL을 대상으로 와서 서로 다른 서버로 가서 다른 ID를 받을 가능성이 존재한다.<br>
+    공간이 많으니 redundancy는 어느정도 용인 가능하다. 중요한건 서로 다른 URL에 대해 같은 ID를 받을 가능성이 없다는 점이다.<br>
 
 # References
 1. https://medium.com/@sandeep4.verma/system-design-scalable-url-shortener-service-like-tinyurl-106f30f23a82
 2. https://dev.to/karanpratapsingh/system-design-url-shortener-10i5
 3. https://www.mongodb.com/docs/manual/sharding/#sharding-strategy
+4. https://www.geeksforgeeks.org/system-design-url-shortening-service/
