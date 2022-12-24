@@ -33,12 +33,12 @@ Ideal architecture에서 하나의 서버와 하나의 데이터베이스만을 
 
 ## Implementaition of Proposed Architecture
 ### Shortening Algorithm
+- [counter.js](./src/utils/counter.js)
 Unique key를 위하여 counter approach를 사용한다.<br>
-SQL을 사용한다면 auto incrementation을 사용했겠지만, Scalability를 위하여 NoSQL을 선택했고 counter를 위한 collection을 따로 만들었다.
-counter는 한 번 접근할 때 하나의 큰 덩어리를 받아와서 write가 될 때마다 counter를 collection에서 받아오는 것을 방지한다.
-서버가 중지된다면 받아온 덩어리 중 사용하지 못 한 부분이 소실되지만 counter space가 커서 큰 문제가 되지 않는다.
-기본적으로 counter space가 크기에 redundancy는 용인 된다.
-[counter.js](./src/utils/counter.js)
+SQL을 사용한다면 auto incrementation을 사용했겠지만, Scalability를 위하여 NoSQL을 선택했고 counter를 위한 collection을 따로 만들었다.<br>
+counter는 한 번 접근할 때 하나의 큰 덩어리를 받아와서 write가 될 때마다 counter를 collection에서 받아오는 것을 방지한다.<br>
+서버가 중지된다면 받아온 덩어리 중 사용하지 못 한 부분이 소실되지만 counter space가 커서 큰 문제가 되지 않는다.<br>
+기본적으로 counter space가 크기에 redundancy는 용인 된다.<br>
 
 
 
