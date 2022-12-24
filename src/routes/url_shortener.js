@@ -24,9 +24,10 @@ router.post('/shorten', async function (req, res) {
     if (doc)
         encodedId = base62.encode(doc._id);
     else {
-        let count = counter.get_count();
+        let count = await counter.get_count();
+        console.log("count: ", count);
         const newUrl = {_id: count, url: originalUrl};
-        await db.getDb.collection('URL').insertOne(newUrl);
+        const result = await db.getDb().collection('URL').insertOne(newUrl);
         encodedId = base62.encode(count);
     }
     res.json({url_res: encodedId});
