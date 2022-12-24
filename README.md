@@ -25,14 +25,9 @@ Overview will be inserted in here<br>
 Ideal architecture에서 하나의 서버와 하나의 데이터베이스만을 시뮬레이션한다.<br>
 
 ##### Possible Hazard<br>
-1. single point of failure web server / database
-
-### Future Work
-1. Load balancer and distributed server
-2. Sharded database
+1. Server and DataBase can be a single point of failure
 
 ## Implementaition of Proposed Architecture
-### Shortening Algorithm
 - [counter.js](./src/utils/counter.js)<br>
 Unique key를 위하여 counter approach를 사용한다.<br>
 SQL을 사용한다면 auto incrementation을 사용했겠지만, Scalability를 위하여 NoSQL을 선택했고 counter를 위한 collection을 따로 만들었다.<br>
