@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>URL Shortener</title>
-        <link rel="stylesheet" href="style.css"/>
-        <script src="index.js" defer></script>
+        <link rel="stylesheet" href="styles/index.css"/>
+        <script src="scripts/index.js" defer></script>
     </head>
     <body>
         <header>
@@ -14,14 +14,15 @@
         <main>
             <section>
                 <label for="input_URL">Enter URL in here</label>
-                <input type="url" name="input_URL" id="input_URL" required/>
+                <input type="url" name="input_URL" id="input_URL"/>
                 <button type="button" id="reset_button">Clear</button>
                 <button type="button" id="submit_button">Submit</button>
-                <p>URL is not valid</p>
+                <p id="alert">Something is wrong, i can feel it</p>
             </section>
-            <section>
+            <section id="result">
                 <p>Shortend URL</p>
-                <button type="button">Copy</button>
+                <p id="hash"></p>
+                <button type="button" id="copy">Copy</button>
             </section>
         </main>
     </body>

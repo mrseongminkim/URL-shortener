@@ -10,14 +10,13 @@ app.use(express.json());
 
 app.use(urlShortenerRoutes);
 
-/*
+//Make it better
 app.use(function(error, req, res, next) {
     console.log(error);
-    res.status(500).render('500');
+    res.status(500).send(error);
 });
-*/
 
 db.connectToDatabase().then(function() {
-    console.log("server on");
+    console.log("Server is started");
     app.listen(3000);
 });

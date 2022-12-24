@@ -1,0 +1,8 @@
+#alert {
+    visibility: hidden;
+    color: red;
+}
+
+#result {
+    visibility: hidden;
+}

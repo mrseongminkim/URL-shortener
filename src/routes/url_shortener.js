@@ -1,48 +1,69 @@
 const path = require('path');
 
 const express = require('express');
-const mongodb = require('mongodb');
 
 const db = require('../data/database');
 const base62 = require('../utils/base62');
 const counter = require('../utils/counter');
+const simple_cache = require('../utils/simple_cache');
+
+const cache = new simple_cache.Cache(1000);
 
 const router = express.Router();
 
 router.get('/', function (req, res) {
+    console.log('index.html is sent');
     const filePath = path.join(__dirname, '../views/index.html');
     res.sendFile(filePath);
-    console.log("index.html has sent");
 });
 
 router.post('/shorten', async function (req, res) {
-    var originalUrl = req.body.url;
+    console.log('URL is received: ', req.body.url);
+    let originalUrl = req.body.url;
 
-    const doc = await db.getDb().collection('URL').findOne({url: originalUrl});
+    const doc = await db.getDb().collection('URLs').findOne({URL: originalUrl});
     let encodedId;
 
-    if (doc)
+    if (doc) {
+        console.log("Database hit");
         encodedId = base62.encode(doc._id);
+    }
     else {
+        console.log("Database miss");
         let count = await counter.get_count();
-        console.log("count: ", count);
-        const newUrl = {_id: count, url: originalUrl};
-        const result = await db.getDb().collection('URL').insertOne(newUrl);
+        const newUrl = {_id: count, URL: originalUrl};
+        await db.getDb().collection('URLs').insertOne(newUrl);
         encodedId = base62.encode(count);
+        cache.put(encodedId, originalUrl);
     }
     res.json({url_res: encodedId});
 });
 
-router.get('/:encodedId', async function (req, res) {
+router.get('/:encodedId', async function (req, res, next) {
+    console.log("Encoded id is received: ", req.params.encodedId);
     let encodedId = req.params.encodedId;
     let decodedId = base62.decode(encodedId);
 
-    const doc = await db.getDb().collection('URL').findOne({_id: decodedId});
-    if (doc)
-        res.redirect(doc.url);
+    let cached = cache.get(encodedId);
+    if (cached === "CACHE_MISS") {
+        console.log("Cache miss");
+        const doc = await db.getDb().collection('URLs').findOne({_id: decodedId});
+        try {
+            if (doc) {
+                cached = doc.URL;
+                cache.put(encodedId, cached);
+            }
+            else
+                throw("URL is not in the database");
+        }
+        catch (error) {
+            next(error);
+            return;
+        }
+    }
     else
-        res.redirect('/');
-    //이거 오류처리해줘야 함
+        console.log("Cache hit");
+    res.redirect("http://" + cached);
 });
 
 module.exports = router;

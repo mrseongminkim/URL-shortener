@@ -6,7 +6,7 @@ let database;
 
 async function connect() {
     const client = await MongoClient.connect('mongodb://localhost:27017');
-    database = client.db('url_shortener');
+    database = client.db('URL_shortener');
 }
 
 function getDb() {

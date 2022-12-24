@@ -1,0 +1,6 @@
+use URL_shortener;
+
+db.dropDatabase();
+
+db.counter.insertOne({_id: "counter", count: 1000000});
+db.URLs.insertOne({_id: 999999, URL: "smilegate.com"});
