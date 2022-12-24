@@ -1,30 +1,26 @@
 # 1. Project Description
 Scalable한 URL shortener를 고민한다.<br>
-## Estimation and Constraints
+
+## Estimation And Constraints
 ### Traffic
 한 번 DB에 write된 URL은 공유되어 여러 번 read된다.<br>
 read/write ratio를 100 : 1로 가정했다.<br>
 1초에 만들어지는 unique한 shortened url의 개수: 40URLs/second<br>
 1초에 redirect되는 URL의 개수: 4000URLs/second<br>
+
 ### Storage
+총 필요한 메모리의 크기를 6TB라 가정한다.<br>
 
-
-
-
-
-## Storage
-서비스가 100년동안 가동한다.<br>
-총 만들어질 데이터의 개수 = 100년 * 12달 * 100 * 10^6 = 12 * 10^9<br>
-각각의 데이터의 크기를 500 bytes라 한다.<br>
-총 필요한 메모리의 크기 = 12 * 10^9 * 500 bytes = 6 * 10^12 Bytes = 6TB<br>
-
-## Memory
+### Memory
 Pareto Principle를 따르는 cache system을 구현한다.<br>
-request per day = 4000 req/s * 86400s ~= 350 * 10^6 req/day<br>
-20 percent of 350 * 10^6 req/day * 500 bytes ~= 35 * 10^9 = 35 GB/day<br>
+35GB의 in-memory cache가 필요하다.
 
-# High Level Design and Future Work
-## High Level Design
+## High Level Design And Future Work
+### High Level Design
+#### Idle Architecture
+Overview will be inserted in here<br>
+
+#### Proposed Architecture In This Project
 Overview will be inserted in here<br>
 Possible hazard<br>
 1. single point of failure web server / database
@@ -32,6 +28,19 @@ Possible hazard<br>
 ## Future Work
 1. Load balancer and distributed server
 2. Sharded database
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Database
 SQL Time Complexity<br>
