@@ -33,12 +33,24 @@ Ideal architecture에서 하나의 서버와 하나의 데이터베이스만을 
 
 ## Implementaition of Proposed Architecture
 ### Shortening Algorithm
-- [counter.js](./src/utils/counter.js)
+- [counter.js](./src/utils/counter.js)<br>
 Unique key를 위하여 counter approach를 사용한다.<br>
 SQL을 사용한다면 auto incrementation을 사용했겠지만, Scalability를 위하여 NoSQL을 선택했고 counter를 위한 collection을 따로 만들었다.<br>
 counter는 한 번 접근할 때 하나의 큰 덩어리를 받아와서 write가 될 때마다 counter를 collection에서 받아오는 것을 방지한다.<br>
 서버가 중지된다면 받아온 덩어리 중 사용하지 못 한 부분이 소실되지만 counter space가 커서 큰 문제가 되지 않는다.<br>
-기본적으로 counter space가 크기에 redundancy는 용인 된다.<br>
+
+- [base62.js](./src/utils/base62.js)<br>
+counter를 base62로 표기하여 shortened URL을 제공한다.<br>
+
+- [simple_cache.js](./src/utils/simple_cache.js)<br>
+저장된 URL이 변하지 않음으로 요청된 URL을 cache하여 데이터베이스에 접근하는 latency를 줄일 수 있다.<br>
+cache는 구현을 위해 단순한 LRU cache를 Map을 이용하여 구현하였다.<br>
+데이터베이스에 엑세스하는 경우는 크게 두 가지로 나뉠 수 있다.<br>
+1. 입력된 URL에 대해 이미 shorten된 URL이 존재하는지 검색한다.<br>
+2. base62로 encoded된 counter로 original URL을 검색한다.<br>
+이 중에서 2.가 주요 bottleneck이 될거라고 생각하여 key as encoded count, value as URL을 가지는 캐시만을 구현하였다.<br>
+1.에 대한 구현은 memory와 latency의 trade off를 통해 결정할 수 있다.<br>
+
 
 
 
@@ -66,31 +78,6 @@ table에 저장하면 분산된 table을 읽는 overhead가 필요하다.<br>
 MongoDB는 Hashed Sharding을 지원하여 shard key의 값에 따라 찾아야 할 chunk를 줄여준다. -> 더 빠른 read/write<br>
 tiny URL as shard key<br>
 ShortURL에 대해 search index를 만들 수도 있다.<br>
-
-
-# Shortening Algorithm
-1. random number
-    랜덤하게 7자리로 base62로 만들고 그걸 unique key로 사용<br>
-    key가 이미 존재하는지 확인해야하며 데이터베이스가 커지면서 점점 비효율적이된다.<br>
-    새로운 URL이 왔을때 이게 이미 있는 것인지 full scan을 해야한다는 단점도 있다.<br>
-2. using counter
-    counter를 사용할 때마다 증가한다.<br>
-    SQL을 사용하면 바로 적용 가능할텐데 scalability때문에 적용이 힘들 것 같다. auto increment<br>
-    새로운 URL이 왔을때 이게 이미 있는 것인지 full scan을 해야한다는 단점도 있다.<br>
-3. MD5 hash
-    URL 자체를 encode하고 나온 128 bit를 사용한다.<br>
-    32개의 16진수가 생성된다.<br>
-    이 중에 첫 7글자를 사용하고 겹친다면 다음 7글자를 사용한다.<br>
-    이 값을 단순하게 key로 사용하기도 어려운게 어떤 인덱스에 있는 글자들을 사용했는지 알 수 없다.<br>
-4. Key Generation Service(KGS)
-    key-DB에 미리 랜덤한 키들을 만들어 둔다.<br>
-    미리 만들어진 키를 가져와서 사용한다.<br>
-    중복 걱정 없고 미리 만들어두기에 빠르다.<br>
-    concurrency: 여러 서버가 같은 키에 접근한다면 문제가 생긴다.<br>
-    unused, used로 table을 나누고 서버에 의해서 key가 읽히면 table을 옮긴다.<br>
-    KGS는 메모리 상에 key들을 조금 저장해 서버가 필요할 때 빨리 전달 가능하며 Memory에 옮길 때 used라고 체크해서 unique를 보장한다.<br>
-    KGS는 SQL로 lock 및 sync 기능을 쓰기에 좋아보인다.<br>
-    KGS can be a SPOF<br>
 
 
 # References
