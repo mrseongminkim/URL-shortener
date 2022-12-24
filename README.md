@@ -64,9 +64,12 @@ sync, async 부분의 작동 원리는 조금 더 공부가 필요할 것 같다
 
 # 4. 개발 관련 과정에서 궁금했던 부분
 1. SQL과 NoSQL의 Read/Write Time Complexity<br>
-인터넷을 보면 NoSQL이 SQL보다 빠르다던데, ACID를 타협하는 부분이 있으니 그 부분이 빨라지는 것은 이해된다.
-SQL의 Read Complexity를 생각해보면 O(n)이나 O(logn)을 가질 것 같은데 NoSQL은 작동 원리를 정확히 공부를 못 해서 대략적인 Complexity를 알 수 없었다.
-NoSQL이 특정 연산에서 SQL보다 빠른 이유와 NoSQL이 query를 하는 원리가 궁금하다.
+인터넷을 보면 NoSQL이 SQL보다 빠르다던데, ACID를 타협하는 부분이 있으니 그 부분이 빨라지는 것은 이해된다.<br>
+SQL의 Read Complexity를 생각해보면 O(n)이나 O(logn)을 가질 것 같은데 NoSQL은 작동 원리를 정확히 공부를 못 해서 대략적인 Complexity를 알 수 없었다.<br>
+NoSQL이 특정 연산에서 SQL보다 빠른 이유와 NoSQL이 query를 하는 원리가 궁금하다.<br>
+2. async의 장점을 살릴 방법<br>
+async를 살리기 위해서는 따로 인터럽트를 이용해야 할 것 같은데 이 부분에 대한 공부가 더 필요할 것 같다.<br>
+가령 온라인으로 체스를 둘 수 있는 기능을 만든다고 하면 다른 사용자가 수를 둔 것을 async하게 받아야 할 것 같은데 이러한 것들이 어떻게 해결될 수 있는지가 궁금하다.<br>
 
 # 5. References
 1. https://medium.com/@sandeep4.verma/system-design-scalable-url-shortener-service-like-tinyurl-106f30f23a82
