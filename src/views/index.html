@@ -7,20 +7,16 @@
         <script src="scripts/index.js" defer></script>
     </head>
     <body>
-        <header>
-            <h1>URL Shortener</h1>
-            <hr>
-        </header>
         <main>
+            <h1>URL Shortener</h1>
             <section>
-                <label for="input_URL">Enter URL in here</label>
-                <input type="url" name="input_URL" id="input_URL"/>
+                <input type="url" id="input_URL" placeholder="Enter URL in here"/>
                 <button type="button" id="reset_button">Clear</button>
                 <button type="button" id="submit_button">Submit</button>
-                <p id="alert">Something is wrong, i can feel it</p>
+                <p id="alert">URL is not valid</p>
             </section>
             <section id="result">
-                <p>Shortend URL</p>
+                <h2 id="h2">Shortend URL</h2>
                 <p id="hash"></p>
                 <button type="button" id="copy">Copy</button>
             </section>

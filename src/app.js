@@ -10,7 +10,6 @@ app.use(express.json());
 
 app.use(urlShortenerRoutes);
 
-//Make it better
 app.use(function(error, req, res, next) {
     console.log(error);
     res.status(500).send(error);

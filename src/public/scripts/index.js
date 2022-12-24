@@ -5,6 +5,7 @@ const alert = document.getElementById('alert');
 const result = document.getElementById('result');
 const hash = document.getElementById('hash');
 const copy = document.getElementById('copy');
+const h2 = document.getElementById('h2');
 
 function is_valid_url(url) {
     let valid_format = new RegExp(
@@ -22,25 +23,20 @@ function trim_url(url) {
 }
 
 async function submit_URL(event) {
-    const data = { url: trim_url(input_URL.value) };
+    let data = { url: trim_url(input_URL.value) };
     if (is_valid_url(data.url)) {
-        alert.style.visibility = 'hidden';
+        alert.style.display = 'none';
         const res = await fetch('/shorten', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-        if (res.ok) {
-            let data = await res.json();
-            hash.textContent = 'http://localhost:3000/' + data.url_res;
-            result.style.visibility = 'visible';
-        }
-        else {
-            alert.style.visibility = 'visible';
-        }
+        let val = await res.json();
+        h2.textContent ='Shortend URL for ' + input_URL.value;
+        hash.textContent = 'http://localhost:3000/' + val.url_res;
+        result.style.display = 'block';
     }
-    else {
-        alert.style.visibility = 'visible';
-    }
+    else
+        alert.style.display = 'block';
 }
 
-reset_button.addEventListener('click', function () { input_URL.value = ''; console.log('test') });
+reset_button.addEventListener('click', function () { input_URL.value = ''; });
 submit_button.addEventListener('click', submit_URL);
 copy.addEventListener('click', function () {
     navigator.clipboard.writeText(hash.textContent);

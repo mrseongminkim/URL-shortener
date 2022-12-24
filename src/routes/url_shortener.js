@@ -57,8 +57,7 @@ router.get('/:encodedId', async function (req, res, next) {
                 throw("URL is not in the database");
         }
         catch (error) {
-            next(error);
-            return;
+            return next(error);
         }
     }
     else

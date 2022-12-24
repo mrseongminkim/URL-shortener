@@ -1,8 +1,37 @@
+body {
+    background-color: aliceblue;
+    text-align: center;
+}
+
+main {
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 5%;
+    border-radius: 2%;
+    background-color: white;
+}
+
+#input_URL, #hash {
+    width: 70%;
+    margin-left: 15%;
+    font-size: 30px;
+    background-color: aliceblue;
+    display: block;
+    text-align: center;
+}
+
+#reset_button, #submit_button, #copy {
+    width: 204px;
+    height:36px;
+    margin: 10px;
+    font-size: 18px;
+}
+
 #alert {
-    visibility: hidden;
     color: red;
+    display: none;
 }
 
 #result {
-    visibility: hidden;
+    display: none;
 }
