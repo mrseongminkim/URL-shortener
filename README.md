@@ -17,15 +17,16 @@ Pareto Principle를 따르는 cache system을 구현한다.<br>
 
 ## High Level Design And Future Work
 ### High Level Design
-#### Idle Architecture
+#### Ideal Architecture
 Overview will be inserted in here<br>
 
 #### Proposed Architecture In This Project
 Overview will be inserted in here<br>
-Possible hazard<br>
+
+##### Possible Hazard<br>
 1. single point of failure web server / database
 
-## Future Work
+### Future Work
 1. Load balancer and distributed server
 2. Sharded database
 
