@@ -43,8 +43,8 @@ counter를 base62로 표기하여 shortened URL을 제공한다.<br>
 저장된 URL이 변하지 않기에 요청된 URL을 cache하여 데이터베이스에 접근하는 latency를 줄일 수 있다.<br>
 cache는 구현을 위해 단순한 LRU cache를 Map을 이용하여 구현하였다.<br>
 데이터베이스에 엑세스하는 경우는 크게 두 가지로 나뉠 수 있다.<br>
-\1. 입력된 URL에 대해 이미 shorten된 URL이 존재하는지 검색한다.<br>
-\2. base62로 encoded된 counter로 original URL을 검색한다.<br>
+1. 입력된 URL에 대해 이미 shorten된 URL이 존재하는지 검색한다.<br>
+2. base62로 encoded된 counter로 original URL을 검색한다.<br>
 이 중에서 2.가 주요 bottleneck이 될거라고 생각하여 key as encoded count, value as URL을 가지는 캐시만을 구현하였다.<br>
 1.에 대한 구현은 memory와 latency의 trade off를 통해 결정할 수 있다.<br>
 
