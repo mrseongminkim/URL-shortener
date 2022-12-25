@@ -20,10 +20,10 @@ Pareto Principle를 따르는 cache system을 구현한다.<br>
 ## High Level Design And Future Work
 ### High Level Design
 #### Ideal Architecture
-Overview will be inserted in here<br>
+![image](./resources/Ideal.png);
 
 #### Proposed Architecture In This Project
-Overview will be inserted in here<br>
+![image](./resources/Proposed.png);
 Ideal architecture에서 하나의 서버와 하나의 데이터베이스만을 시뮬레이션한다.<br>
 
 ##### Possible Hazard<br>
@@ -31,6 +31,7 @@ Ideal architecture에서 하나의 서버와 하나의 데이터베이스만을 
 
 ## Implementaition of Proposed Architecture
 - [counter.js](./src/utils/counter.js)<br>
+![image](./resources/Database.png);
 Unique key를 위하여 counter approach를 사용한다.<br>
 SQL을 사용한다면 auto incrementation을 사용했겠지만, Scalability를 위하여 NoSQL을 선택했고 counter를 위한 collection을 따로 만들었다.<br>
 counter는 한 번 접근할 때 하나의 큰 덩어리를 받아와서 write가 될 때마다 counter를 collection에서 받아오는 것을 방지한다.<br>
