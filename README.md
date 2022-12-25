@@ -61,21 +61,21 @@ sync, async 부분의 작동 원리는 조금 더 공부가 필요할 것 같다
 1. async를 사용해서 구현한 함수들(async의 장점을 살릴 방법)<br>
 2. [url_shortener.js](./src/routes/url_shortener.js)<br><br>
     기존 utils들은 기존 프로그래밍과 비슷해서 쉽게 했는데, 웹 프로그래밍은 이번이 처음이라 가장 고민을 많이 한 부분이다.<br>
-3. [app.js](./src/app.js)의 오류 처리 함수
+3. [app.js](./src/app.js)의 오류 처리 함수<br>
 ```JavaScript
 app.use(function(error, req, res, next) {
     console.log(error);
     res.status(500).send(error);
 });
 ```
-단순하게 error를 담아서 보내는데 이보다 더 좋은 처리 방법을 알고 싶다.
-4. [url_shortener.js](./src/routes/url_shortener.js)의 dynamic routes 부분
+단순하게 error를 담아서 보내는데 이보다 더 좋은 처리 방법을 알고 싶다.<br>
+4. [url_shortener.js](./src/routes/url_shortener.js)의 dynamic routes 부분<br>
 '''JavaScript
 router.get('/:encodedId', async function (req, res, next);
 '''
-Shortened URL을 original URL로 바꿔주기 위해 이렇게 dynamic route를 구성했다.
-다만, 브라우저가 자동으로 요청하는 http://localhost:3000/favicon.ico 때문에 오류가 나서 favicon.ico를 실제로 public에 저장해서 해결했다.
-이는 /app/으로 경로를 조금 더 자세하게 지정하는 방법으로 해결할 수 있을 것 같은데, 가장 효율적인 방법은 무엇인가 궁금하다.
+Shortened URL을 original URL로 바꿔주기 위해 이렇게 dynamic route를 구성했다.<br>
+다만, 브라우저가 자동으로 요청하는 http://localhost:3000/favicon.ico 때문에 오류가 나서 favicon.ico를 실제로 public에 저장해서 해결했다.<br>
+이는 /app/으로 경로를 조금 더 자세하게 지정하는 방법으로 해결할 수 있을 것 같은데, 가장 효율적인 방법은 무엇인가 궁금하다.<br>
 
 # 4. 개발 관련 과정에서 궁금했던 부분
 1. SQL과 NoSQL의 Read/Write Time Complexity<br>
@@ -85,6 +85,10 @@ NoSQL이 특정 연산에서 SQL보다 빠른 이유와 NoSQL이 query를 하는
 2. async의 장점을 살릴 방법<br>
 async를 살리기 위해서는 따로 인터럽트를 이용해야 할 것 같은데 이 부분에 대한 공부가 더 필요할 것 같다.<br>
 가령 온라인으로 체스를 둘 수 있는 기능을 만든다고 하면 다른 사용자가 수를 둔 것을 async하게 받아야 할 것 같은데 이러한 것들이 어떻게 해결될 수 있는지가 궁금하다.<br>
+3. Architecture를 제한하는 방법<br>
+여러가지 자원의 제한으로 개발에서 많은 타협이 이루어질 것이라고 생각한다.<br>
+이번 개발에서는 다중 서버 및 분산화된 데이터베이스를 구현할 수 없어서 단순화한 architecture로 구현했는데, 이는 scalable하지 않다고 생각한다.<br>
+scalable을 유지하면서 타협하는 방법이 궁금하다.<br>
 
 # 5. References
 1. https://medium.com/@sandeep4.verma/system-design-scalable-url-shortener-service-like-tinyurl-106f30f23a82
