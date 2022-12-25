@@ -70,9 +70,9 @@ app.use(function(error, req, res, next) {
 ```
 단순하게 error를 담아서 보내는데 이보다 더 좋은 처리 방법을 알고 싶다.<br>
 4. [url_shortener.js](./src/routes/url_shortener.js)의 dynamic routes 부분<br>
-'''JavaScript
+```JavaScript
 router.get('/:encodedId', async function (req, res, next);
-'''
+```
 Shortened URL을 original URL로 바꿔주기 위해 이렇게 dynamic route를 구성했다.<br>
 다만, 브라우저가 자동으로 요청하는 http://localhost:3000/favicon.ico 때문에 오류가 나서 favicon.ico를 실제로 public에 저장해서 해결했다.<br>
 이는 /app/으로 경로를 조금 더 자세하게 지정하는 방법으로 해결할 수 있을 것 같은데, 가장 효율적인 방법은 무엇인가 궁금하다.<br>
