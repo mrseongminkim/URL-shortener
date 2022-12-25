@@ -61,6 +61,21 @@ sync, async 부분의 작동 원리는 조금 더 공부가 필요할 것 같다
 1. async를 사용해서 구현한 함수들(async의 장점을 살릴 방법)<br>
 2. [url_shortener.js](./src/routes/url_shortener.js)<br><br>
     기존 utils들은 기존 프로그래밍과 비슷해서 쉽게 했는데, 웹 프로그래밍은 이번이 처음이라 가장 고민을 많이 한 부분이다.<br>
+3. [app.js](./src/app.js)의 오류 처리 함수
+```JavaScript
+app.use(function(error, req, res, next) {
+    console.log(error);
+    res.status(500).send(error);
+});
+```
+단순하게 error를 담아서 보내는데 이보다 더 좋은 처리 방법을 알고 싶다.
+4. [url_shortener.js](./src/routes/url_shortener.js)의 dynamic routes 부분
+'''JavaScript
+router.get('/:encodedId', async function (req, res, next);
+'''
+Shortened URL을 original URL로 바꿔주기 위해 이렇게 dynamic route를 구성했다.
+다만, 브라우저가 자동으로 요청하는 http://localhost:3000/favicon.ico 때문에 오류가 나서 favicon.ico를 실제로 public에 저장해서 해결했다.
+이는 /app/으로 경로를 조금 더 자세하게 지정하는 방법으로 해결할 수 있을 것 같은데, 가장 효율적인 방법은 무엇인가 궁금하다.
 
 # 4. 개발 관련 과정에서 궁금했던 부분
 1. SQL과 NoSQL의 Read/Write Time Complexity<br>
