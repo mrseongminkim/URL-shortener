@@ -1,5 +1,3 @@
-# 12/25 완료
-
 # 1. Project Description
 Scalable한 URL shortener를 고민한다.<br>
 
